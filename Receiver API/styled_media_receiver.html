@@ -1,0 +1,24 @@
+ <html>
+ <head>
+ <title> Chrome Cast Custom Receiver </title>
+ </head>
+ <body>
+ <cast-media-player id="player">  </cast-media-player>
+	<style>
+		# player
+		{
+			--theme - hue: 210;
+			--progress - color: rgb(0, 255, 0);
+			--logo - image: url('https://venwebsecure.ventunotech.com/chromecast_test/logo.png');
+			--background - image: url('https://venwebsecure.ventunotech.com/chromecast_test/background.png');
+		}
+
+	</style>
+	<script>
+		let playerElement = document.getElementById("player");
+		playerElement.style.setProperty('--splash-image	', 'url("https://venwebsecure.ventunotech.com/chromecast_test/splash.png")');
+	</script>
+ <script type = "text/javascript" src = "//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"></script>
+
+ </body>
+</html>

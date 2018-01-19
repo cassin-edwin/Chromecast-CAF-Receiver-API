@@ -1,0 +1,108 @@
+<html>
+<head>
+  
+</head>
+<body>
+  <cast-media-player id="player"></cast-media-player>
+   <style>
+    #player {
+        --theme-hue: 210;
+        --splash-image: url("https://venwebsecure.ventunotech.com/plugins/chromecast/v1/splash.png");
+    }
+  </style>
+  <script type="text/javascript"
+      src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
+  </script>
+  
+  <script>
+    //cast.framework.CastReceiverContext.getInstance().start();
+    
+    const context = cast.framework.CastReceiverContext.getInstance();
+    const playerManager = context.getPlayerManager();
+	
+	playerManager.setMessageInterceptor(
+    cast.framework.messages.MessageType.LOAD, loadRequestData => {
+	   console.log("String");
+       console.log(loadRequestData);
+      return loadRequestData;
+    });
+    function buildNewMediaItem(media)
+	{
+		var item = new cast.framework.messages.QueueItem();
+    	
+    	item.media = media;
+    	
+    	return item;
+	}
+ 	const DemoQueue = class extends cast.framework.QueueBase 
+	{
+			constructor() 
+			{
+				super();
+				this.myMediaUrls_ = [];
+			}
+			initialize(loadRequestData) 
+			{
+			console.log("CHECK: initialize");
+				const items = [];
+				for (const mediaUrl of this.myMediaUrls_)
+				{
+				const item = new cast.framework.messages.QueueItem();
+				item.media = new cast.framework.messages.MediaInformation();
+				item.media.contentId = mediaUrl;
+				items.push(item);
+				}
+				const media = loadRequestData.media;
+				items.push(buildNewMediaItem(media));
+				
+				
+				   const queueData =   loadRequestData.queueData || new cast.framework.messages.QueueData();
+				   // const repeat = cast.framework.messages.RepeatMode();
+				   queueData.repeatMode = cast.framework.messages.RepeatMode.REPEAT_ALL;
+				   queueData.items = items;
+				   console.log(queueData);
+	   		       queueData.startIndex = 0;
+				   queueData.startTime = 2;
+				   return queueData;
+
+			}
+
+      
+
+	}
+	
+	function addBreakToMedia(media) 
+	{
+		media.breakClips = [
+		{
+		id: 'bc1',
+	//	title: thirdparty.getBreakClipTitle(),
+	    //contentId: "http://ventunoads.edgesuite.net/153/17-03-2016/Saffola_Active__Stay_Fit_With_Ki___Ka__O1CUS39W.mp4",
+		contentId: "https://venwebsecure.ventunotech.com/mediaTest/testAD.mp4",
+		contentType: "video/mp4",
+	//	posterUrl: thirdparty.getBreakClipPosterUrl(),
+		whenSkippable: 10
+		}
+		];
+		
+		media.breaks = [
+		{
+			id: 'b1',
+			breakClipIds: ['bc1'],
+			position: 0
+		}];
+	}
+		
+		
+    const playbackConfig = new cast.framework.PlaybackConfig();
+    playbackConfig.autoResumeDuration = 5;
+   
+  
+    context.start({
+	queue: new DemoQueue(),
+	playbackConfig: playbackConfig});
+    
+    console.log("test log1");
+  </script>
+</body>
+</html>

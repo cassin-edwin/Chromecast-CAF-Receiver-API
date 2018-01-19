@@ -1,0 +1,20 @@
+.background {
+  background: center no-repeat url(https://venwebsecure.ventunotech.com/chromecast_test/background.png);
+}
+
+.logo {
+  background-image: url(https://venwebsecure.ventunotech.com/chromecast_test/logo.png);
+}
+
+.progressBar {
+  background-color: rgb(238, 255, 65);
+}
+
+.splash {
+  background-image: url(https://venwebsecure.ventunotech.com/chromecast_test/splash.png);
+}
+
+.watermark {
+  background-image: url(https://venwebsecure.ventunotech.com/chromecast_test/watermark.png);
+  background-size: 57px 57px;
+}

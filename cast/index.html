@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Chromecast</title>
+ 
+</head>
+<body>
+        <button onclick="session()" style="height:50px; width:50px">Cast button</button>
+        <script src="script2.js"></script>
+
+		<button onclick="playOrPause()">Play or Pause</button>
+		<button onclick="stop()">Stop</button>
+		<script>
+				window.__onGCastApiAvailable = function(isAvailable)
+				{
+					if (isAvailable)
+					{
+						 init();
+
+					}
+				
+				}
+        </script>
+		<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>	  
+</body>
+</html>
